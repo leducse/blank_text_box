@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Simple Form</title>
+    <title>Editable Form</title>
+    <script>
+        function toggleEdit() {
+            var textarea = document.getElementById('myTextbox');
+            var saveButton = document.getElementById('saveButton');
+            var editButton = document.getElementById('editButton');
+            
+            // If the textarea is read-only, make it editable
+            if (textarea.readOnly) {
+                textarea.readOnly = false;
+                saveButton.disabled = false;
+                editButton.disabled = true;
+            }
+        }
+        
+        function toggleSave() {
+            var textarea = document.getElementById('myTextbox');
+            var saveButton = document.getElementById('saveButton');
+            var editButton = document.getElementById('editButton');
+            
+            // If the textarea is editable, make it read-only
+            if (!textarea.readOnly) {
+                textarea.readOnly = true;
+                saveButton.disabled = true;
+                editButton.disabled = false;
+            }
+        }
+    </script>
 </head>
 <body>
 
 <form action="">
     <label for="myTextbox">Enter text:</label><br>
-    <input type="text" id="myTextbox" name="myTextbox"><br>
-    <input type="submit" value="Submit">
+    <textarea id="myTextbox" name="myTextbox" readonly></textarea><br>
+    <input type="button" id="editButton" value="Edit" onclick="toggleEdit()">
+    <input type="button" id="saveButton" value="Save" onclick="toggleSave()" disabled>
 </form>
 
 </body>
