@@ -2,17 +2,23 @@
 <html>
 <head>
     <title>Editable Form</title>
+    <style>
+        #myCanvas {
+            display: none;
+            border:1px solid #d3d3d3;
+        }
+    </style>
     <script>
         function toggleEdit() {
             var textarea = document.getElementById('myTextbox');
             var saveButton = document.getElementById('saveButton');
             var editButton = document.getElementById('editButton');
+            var canvas = document.getElementById('myCanvas');
             
-            if (textarea.readOnly) {
-                textarea.readOnly = false;
-                saveButton.disabled = false;
-                editButton.disabled = true;
-            }
+            textarea.style.display = 'block';
+            saveButton.style.display = 'inline';
+            editButton.style.display = 'none';
+            canvas.style.display = 'none';
         }
         
         function toggleSave() {
@@ -22,18 +28,17 @@
             var canvas = document.getElementById('myCanvas');
             var ctx = canvas.getContext('2d');
             
-            if (!textarea.readOnly) {
-                textarea.readOnly = true;
-                saveButton.disabled = true;
-                editButton.disabled = false;
-
-                // Clear the canvas
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                // Display the text as an image
-                ctx.font = '16px Arial';
-                ctx.fillText(textarea.value, 10, 50);
-            }
+            textarea.style.display = 'none';
+            saveButton.style.display = 'none';
+            editButton.style.display = 'inline';
+            canvas.style.display = 'block';
+            
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Display the text as an image
+            ctx.font = '16px Arial';
+            ctx.fillText(textarea.value, 10, 50);
         }
     </script>
 </head>
@@ -41,15 +46,13 @@
 
 <form action="">
     <label for="myTextbox">Enter text:</label><br>
-    <textarea id="myTextbox" name="myTextbox" readonly></textarea><br>
-    <input type="button" id="editButton" value="Edit" onclick="toggleEdit()">
-    <input type="button" id="saveButton" value="Save" onclick="toggleSave()" disabled>
+    <textarea id="myTextbox" name="myTextbox"></textarea><br>
+    <input type="button" id="editButton" value="Edit" onclick="toggleEdit()" style="display: none;">
+    <input type="button" id="saveButton" value="Save" onclick="toggleSave()">
 </form>
 
 <!-- Canvas to display the text as an image -->
-<canvas id="myCanvas" width="500" height="500" style="border:1px solid #d3d3d3;">
-Your browser does not support the HTML5 canvas tag.
-</canvas>
+<canvas id="myCanvas" width="500" height="500"></canvas>
 
 </body>
 </html>
