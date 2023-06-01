@@ -8,7 +8,6 @@
             var saveButton = document.getElementById('saveButton');
             var editButton = document.getElementById('editButton');
             
-            // If the textarea is read-only, make it editable
             if (textarea.readOnly) {
                 textarea.readOnly = false;
                 saveButton.disabled = false;
@@ -20,12 +19,20 @@
             var textarea = document.getElementById('myTextbox');
             var saveButton = document.getElementById('saveButton');
             var editButton = document.getElementById('editButton');
+            var canvas = document.getElementById('myCanvas');
+            var ctx = canvas.getContext('2d');
             
-            // If the textarea is editable, make it read-only
             if (!textarea.readOnly) {
                 textarea.readOnly = true;
                 saveButton.disabled = true;
                 editButton.disabled = false;
+
+                // Clear the canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Display the text as an image
+                ctx.font = '16px Arial';
+                ctx.fillText(textarea.value, 10, 50);
             }
         }
     </script>
@@ -38,6 +45,11 @@
     <input type="button" id="editButton" value="Edit" onclick="toggleEdit()">
     <input type="button" id="saveButton" value="Save" onclick="toggleSave()" disabled>
 </form>
+
+<!-- Canvas to display the text as an image -->
+<canvas id="myCanvas" width="500" height="500" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
 
 </body>
 </html>
